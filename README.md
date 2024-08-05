@@ -1,12 +1,12 @@
 # smart.lapply
 
-Despite modern day CPU's sporting a large number of cores, R is single-threaded, meaning that you code will execute on only one of potentially 20 or more cores depending on your system. By splitting code across multiple cores, you can speed it up (potentially 20 times if you have 20 cores).
+Despite modern day CPU's sporting a large number of cores, R is single-threaded, meaning that your code will execute on only one of potentially 20 or more cores depending on your system. By splitting code across multiple cores, you can speed it up (by a factor of 20 if you have 20 cores, for example).
 
-However, implementing parallel processing in R for most users is a tricky process, with issues around which operating system you have, how many cores are available, and how much memory is available all potentially causing crashes or major slowdowns.
+However, implementing parallel processing in R for most users is a tricky process. There are issues depending on which operating system you have, how many cores are available, and how much memory is available, all of which can cause crashed or slowdowns.
 
-The `smart.lapply::` package provides an enhanced `lapply` function that supports user friendly and machine safe parallel processing. Users can simply replace their lapply() code with smart.lapply() and the code will run exactly the same. However, if the user sets `cores = 2` or more the function will seamlessly switch to a parallel version whilst tracking the user's OS, available cores, and available memory. This also means that parallel code can be ported across to users as is regardless of the available resources or the OS.
+The `smart.lapply::` package provides an enhanced `lapply()` function that supports user friendly and machine safe parallel processing. Users can simply replace their `lapply()` code with `smart.lapply()` and the code will run exactly the same. However, if the user sets `cores = 2` or more the function will seamlessly switch to a parallel version whilst tracking the user's OS, available cores, and available memory. This also means that parallel code can be ported across to users as is regardless of the available resources or the OS.
 
-More advanced users will also appreciate the built in capacity to use psuedo-random number generation via the `generate_seeds=` argument; typically when running parallel code the seed will be copied across all clusters so that any outputs relying on random number generation will have the same output across cores. By setting `generate_seeds = TRUE`, users can run multiple simulations, machine learning training cycles, or any other processes relying on random number generation concurrently.
+More advanced users will also appreciate the built in capacity to use psuedo-random number generation via the `generate_seeds=` argument; typically when running parallel code the seed will be copied across all clusters so that any outputs relying on random number generation will have the same output across cores. By setting `generate_seeds = TRUE`, users can run multiple simulations, machine learning training cycles, or any other processes relying on random number generation across multiple cores.
 
 ## Installation
 
@@ -91,4 +91,4 @@ This package is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## Author
 
--   Kyle J. A. Zawada ([kylezx1\@gmail.com](mailto:kylezx1@gmail.com){.email}), [ORCID](https://orcid.org/0000-0002-4587-8138)
+-   Kyle J. A. Zawada ([kylezx1\@gmail.com](mailto:kylezx1@gmail.com)), [ORCID](https://orcid.org/0000-0002-4587-8138)
