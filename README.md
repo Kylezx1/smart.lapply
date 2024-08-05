@@ -1,26 +1,30 @@
 # smart.lapply
 
-The `smart.lapply` package provides an enhanced `lapply` function that supports parallel processing with memory checks and seed management. It offers a way to efficiently apply a function to each element of a vector, utilizing multiple cores while managing system memory and randomness.
+Despite modern day CPU's sporting a large number of cores, R is single-threaded, meaning that you code will execute on only one of potentially 20 or more cores depending on your system. By splitting code across multiple cores, you can speed it up (potentially 20 times if you have 20 cores).
+
+However, implementing parallel processing in R for most users is a tricky process, with issues around which operating system you have, how many cores are available, and how much memory is available all potentially causing crashes or major slowdowns.
+
+The `smart.lapply::` package provides an enhanced `lapply` function that supports user friendly and machine safe parallel processing. Users can simply replace their lapply() code with smart.lapply() and the code will run exactly the same. However, if the user sets `cores = 2` or more the function will seamlessly switch to a parallel version whilst tracking the user's OS, available cores, and available memory. This also means that parallel code can be ported across to users as is regardless of the available resources or the OS.
+
+More advanced users will also appreciate the built in capacity to use psuedo-random number generation via the `generate_seeds=` argument; typically when running parallel code the seed will be copied across all clusters so that any outputs relying on random number generation will have the same output across cores. By setting `generate_seeds = TRUE`, users can run multiple simulations, machine learning training cycles, or any other processes relying on random number generation concurrently.
 
 ## Installation
 
-You can install the `smart.lapply` package directly from GitHub using the `devtools` package. If you don't have `devtools` installed, you can install it with:
+You can install the `smart.lapply::` package directly from GitHub using the `devtools` package. If you don't have `devtools::` installed, you can install it with:
 
 ```{r}
 install.packages("devtools")
 ```
 
-Then, install the `smart.lapply` package with:
+Then, install the `smart.lapply::` package with:
 
 ```{r}
 devtools::install_github("Kylezx1/smart.lapply")
 ```
 
-Replace `"Kylezx1/smart.lapply"` with the appropriate repository path.
-
 ## Usage
 
-Here are some examples of how to use the `smart.lapply` package:
+Here are some examples of how to use the `smart.lapply::` package:
 
 ### Basic Usage
 
@@ -29,7 +33,7 @@ Apply a function to each element of a vector:
 ```{r}
 library(smart.lapply)
 
-result <- smart.lapply(1:100, function(x) x^2)
+result <- smart.lapply(1:4, function(x) x^2)
 print(result)
 ```
 
@@ -38,7 +42,8 @@ print(result)
 Use multiple cores to speed up processing:
 
 ```{r}
-result <- smart.lapply(1:100, function(x) x^2, cores = 4)
+# Note that this code is actually slower due to parallel computing overhead.
+result <- smart.lapply(1:4, function(x) x^2, cores = 4)
 print(result)
 ```
 
@@ -72,8 +77,8 @@ print(result)
 
 -   `get_memory_usage()`: Returns the current memory usage of the R session and the total and available system memory.
 -   `calculate_parallel_instances(buffer_mb = 500)`: Calculates the number of parallel instances that can be run based on the current memory usage.
--   `clusterExport_function(cl, FUN)`: Exports a function to all nodes in a parallel cluster.
--   `mclapply_socket(X, FUN, ..., mc.preschedule = TRUE, mc.set.seed = TRUE, mc.silent = FALSE, mc.cores = NULL, mc.cleanup = TRUE, mc.allow.recursive = TRUE)`: Implements a sockets version of `mclapply` using `parallel::parLapply`.
+-   `clusterExport_function(cl, FUN)`: Exports a function to all nodes in a parallel cluster. (From nathanvan/parallelsugar package)
+-   `mclapply_socket(X, FUN, ..., mc.preschedule = TRUE, mc.set.seed = TRUE, mc.silent = FALSE, mc.cores = NULL, mc.cleanup = TRUE, mc.allow.recursive = TRUE)`: Implements a sockets version of `mclapply` using `parallel::parLapply`. (From nathanvan/parallelsugar package)
 -   `smart.lapply(vector, code_function, cores = 1, seeds_vec = NULL, mem_check = TRUE, generate_seeds = FALSE)`: Applies a function to each element of a vector in parallel, with memory checks.
 
 ## Contributing
