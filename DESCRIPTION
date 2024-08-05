@@ -1,0 +1,17 @@
+Package: smart.lapply
+Title: Easy, Automated, OS-Agnostic, and Memory Safe Parallel Processing
+Version: 0.0.0.9000
+Authors@R: 
+    c(person("Kyle", "J. A. Zawada", , "kylezx1@gmail.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-4587-8138")),
+    person("Nathan", "VanHoudnos", , "nathanvan@gmail.com", role = c("ctb")))
+Description: smart.lapply by default behaves the same as lapply, however, by specifying `cores = >1` it will convert to a parallel version whilst automatically accounting for operating system, available cores, and available memory. Furthermore, it allows users to specify a vector of seeds to allow for psuedo-random number generation across cores. It is safe in that it will set the number of cores according to the total pool available on the machine, and the total number available given the current memory availablity to stop overflows. The current implementation also allows for psuedo-random number generation between instances. smart.lapply defaults to lapply behaviour so all existing code can load this package and replace lapply with smart.lapply with no change to functionality. 
+Depends:
+    R (>= 3.5.0)
+Imports:
+    parallel,
+    pryr
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
