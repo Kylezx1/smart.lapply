@@ -218,7 +218,7 @@ smart.lapply <- function(vector, code_function, cores = 1, seeds_vec = NULL, mem
     max_instances <- NULL
   }
 
-  cores <- min(cores, length(vector), detectCores() - 2, max_instances)
+  cores <- min(cores, length(vector), detectCores() - 2, max(max_instances, 1))
 
   seeds_vec <- if (!is.null(seeds_vec)) {
     seeds_vec
